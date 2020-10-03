@@ -10,6 +10,7 @@ app.config['SECRET_KEY'] = '8ij09trdjki'
 bootstrap = Bootstrap(app)
 class NameForm(Form):
     name = StringField('What is your name?', validators=[Required()])
+    email = StringField('What is your U of T email address?', validators=[Required()])
     submit = SubmitField('Submit')
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -19,12 +20,16 @@ def index():
 
     if form.validate_on_submit():
         old_name = session.get('name')
+        email_address = form.email.data
         if old_name is not None and old_name != form.name.data:
             flash('Looks like you have changed your name!')
+        if 'utoronto' not in email_address:
+            flash('That is not a U of T account!')
         session['name'] = form.name.data
+        session['email'] = form.email.data
         return redirect(url_for('index'))
     return render_template('index.html',
-        form=form, name=session.get('name'))
+        form=form, name=session.get('name'), email=session.get('email'))
 @app.route('/user/<name>')
 def user(name):
     currentTime = datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
