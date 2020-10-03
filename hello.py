@@ -3,14 +3,14 @@ from flask_bootstrap import Bootstrap
 import datetime
 from flask_wtf import Form
 from wtforms import StringField, SubmitField
-from wtforms.validators import Required
+from wtforms.validators import Required, Email
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8ij09trdjki'
 bootstrap = Bootstrap(app)
 class NameForm(Form):
     name = StringField('What is your name?', validators=[Required()])
-    email = StringField('What is your U of T email address?', validators=[Required()])
+    email = StringField('What is your U of T email address?', validators=[Email()])
     submit = SubmitField('Submit')
 @app.route('/', methods=['GET', 'POST'])
 def index():
