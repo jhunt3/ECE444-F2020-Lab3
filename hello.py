@@ -8,6 +8,7 @@ from wtforms.validators import Required, Email
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8ij09trdjki'
 bootstrap = Bootstrap(app)
+
 class NameForm(Form):
     name = StringField('What is your name?', validators=[Required()])
     email = StringField('What is your U of T email address?', validators=[Email()])
@@ -34,6 +35,6 @@ def index():
 def user(name):
     currentTime = datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
     return render_template('user.html',name=name, currentDateTime=currentTime)
-
+#app.run(host='0.0.0.0', port=5000)
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000,debug=True)
