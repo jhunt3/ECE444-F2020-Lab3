@@ -15,3 +15,4 @@ docker run -d -p 5000:5000 flask-sample
 
 Docker vs VM:
 VMs are essentially fully functioning computers while docker only is a functioning process and thus is much lighter weight than a vm.
+VMs are used when the entire OS is required, or the system needs to be totally isolated from the host.
